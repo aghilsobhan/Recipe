@@ -1,23 +1,26 @@
 import icons from 'url:../../img/icons.svg';
-class RecipeView{
-    #recipeContainer = document.querySelector('.recipe');
-    #data;
- 
- render(data){
-        this.#data=data;
-         const markup=this.#generateMarkup();
-         this.#clear();
-        
-         this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
+class RecipeView {
+  #recipeContainer = document.querySelector('.recipe');
+  #data;
+  addHandlerRender(handler){
+    ['hashchange',"load"].forEach(ev=>window.addEventListener(ev,handler));
+  }
+  render(data) {
+    this.#data = data;
+    const markup = this.#generateMarkup();
+    this.#clear();
 
-    }
-    #clear(){
-        this.#recipeContainer.innerHTML='';
-    }
-    #generateMarkup(){
-        return  `
+    this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
+  }
+  #clear() {
+    this.#recipeContainer.innerHTML = '';
+  }
+  #generateMarkup() {
+    return `
         <figure class="recipe__fig">
-        <img src="${this.#data.image}" alt="${this.#data.title}" class="recipe__img" />
+        <img src="${this.#data.image}" alt="${
+      this.#data.title
+    }" class="recipe__img" />
         <h1 class="recipe__title">
           <span>${this.#data.title}</span>
         </h1>
@@ -109,20 +112,20 @@ class RecipeView{
         </a>
       </div>
       
-        `
-    }
-    renderSpinner  () {
-        const markup = `
+        `;
+  }
+  renderSpinner() {
+    const markup = `
         <div class="spinner">
         <svg>
           <use href="${icons}#icon-loader"></use>
         </svg>
       </div> `;
-      this.#clear();
-      this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
-      };
-      ErrorTag () {
-    const  Error=` <!-- <div class="error">
+    this.#clear();
+    this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
+  }
+  ErrorTag() {
+    const Error = ` <!-- <div class="error">
       <div>
         <svg>
           <use href="${icons}#icon-alert-triangle"></use>
@@ -131,8 +134,9 @@ class RecipeView{
       <p>No recipes found for your query. Please try again!</p>
     </div>`;
     this.#recipeContainer.innerHTML = '';
-  
+
     this.#recipeContainer.insertAdjacentHTML('afterbegin', Error);
-    }
+  }
+ 
 }
 export default new RecipeView();
