@@ -1,28 +1,21 @@
 import icons from 'url:../../img/icons.svg';
-class RecipeView {
-  #recipeContainer = document.querySelector('.recipe');
-  #data;
-  addHandlerRender(handler){
-    ['hashchange',"load"].forEach(ev=>window.addEventListener(ev,handler));
+import view from './View.js';
+class RecipeView extends view{
+  _recipeContainer = document.querySelector('.recipe');
+  _errorMessage = "we cann't search this recipes please select another";
+  _message = 'Start by searching for a recipe or an ingredient. Have fun!';
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
-  render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-
-    this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
-  }
-  #clear() {
-    this.#recipeContainer.innerHTML = '';
-  }
-  #generateMarkup() {
+ 
+  _generateMarkup() {
     return `
         <figure class="recipe__fig">
-        <img src="${this.#data.image}" alt="${
-      this.#data.title
+        <img src="${this._data.image}" alt="${
+      this._data.title
     }" class="recipe__img" />
         <h1 class="recipe__title">
-          <span>${this.#data.title}</span>
+          <span>${this._data.title}</span>
         </h1>
       </figure>
     
@@ -70,7 +63,7 @@ class RecipeView {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-        ${this.#data.ingredient
+        ${this._data.ingredient
           .map(ing => {
             return `
             <li class="recipe__ingredient">
@@ -96,13 +89,13 @@ class RecipeView {
         <p class="recipe__directions-text">
           This recipe was carefully designed and tested by
           <span class="recipe__publisher">${
-            this.#data.publisher
+            this._data.publisher
           }</span>. Please check out
           directions at their website.
         </p>
         <a
           class="btn--small recipe__btn"
-          href="${this.#data.sourcUrl}"
+          href="${this._data.sourcUrl}"
           target="_blank"
         >
           <span>Directions</span>
@@ -114,29 +107,5 @@ class RecipeView {
       
         `;
   }
-  renderSpinner() {
-    const markup = `
-        <div class="spinner">
-        <svg>
-          <use href="${icons}#icon-loader"></use>
-        </svg>
-      </div> `;
-    this.#clear();
-    this.#recipeContainer.insertAdjacentHTML('afterbegin', markup);
-  }
-  ErrorTag() {
-    const Error = ` <!-- <div class="error">
-      <div>
-        <svg>
-          <use href="${icons}#icon-alert-triangle"></use>
-        </svg>
-      </div>
-      <p>No recipes found for your query. Please try again!</p>
-    </div>`;
-    this.#recipeContainer.innerHTML = '';
-
-    this.#recipeContainer.insertAdjacentHTML('afterbegin', Error);
-  }
- 
 }
 export default new RecipeView();

@@ -1,4 +1,4 @@
-import { TIMEOT_SEC } from "../config";
+import { TIMEOT_SEC } from "../config.js";
 const timeout = function (s) {
     return new Promise(function (_, reject) {
       setTimeout(function () {
