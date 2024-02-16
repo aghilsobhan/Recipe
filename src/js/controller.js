@@ -9,13 +9,13 @@ if(module.hot){
 }
 const controlRecipe = async function () {
   try {
-    const id = window.location;
-    console.log(id);
-    if(!id) return;
+    const id = window.location.pathname;
+    console.log(id.split('/')[1]);
+    //if(!id) return;
     viewRecipe.renderSpinner();
 
     //1 -  loadeRecipe
-    await model.loadRecipe('5ed6604591c37cdc054bc886');
+    await model.loadRecipe(id.split('/')[1]);
 
     //2- render Recipe
     viewRecipe.render(model.state.recipe);
@@ -26,9 +26,10 @@ const controlRecipe = async function () {
 };
 const controlSearchResult = async function () {
   try {
-    resaultView.renderSpinner();
     const getQuery = searchView.getQuery();
-    if (!getQuery) return;
+    //if (!getQuery) return;
+    resaultView.renderSpinner();
+
     await model.loadSearchRsault(getQuery);
     console.log(model.state.search.results);
     resaultView.render(model.state.search.results);

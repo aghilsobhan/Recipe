@@ -4,9 +4,8 @@ class ResaultView extends view {
   _recipeContainer = document.querySelector('.results');
   _generateMarkup() {
     return this._data.map(this._generateMarkupPrieviw).join('');
-
   }
-  _generateMarkupPrieviw(result){
+  _generateMarkupPrieviw(result) {
     return `
                   <li class="preview">
         <a class="preview__link preview__link--active" href="${result.id}">
@@ -23,6 +22,7 @@ class ResaultView extends view {
             </div>
           </div>
         </a>
-      </li>`;  }
+      </li>`;
+  }
 }
 export default new ResaultView();

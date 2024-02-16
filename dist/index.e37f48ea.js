@@ -592,12 +592,12 @@ var _resaultViewJsDefault = parcelHelpers.interopDefault(_resaultViewJs);
 if (module.hot) module.hot.accept();
 const controlRecipe = async function() {
     try {
-        const id = window.location;
-        console.log(id);
-        if (!id) return;
+        const id = window.location.pathname;
+        console.log(id.split("/")[1]);
+        //if(!id) return;
         (0, _viewRecipeJsDefault.default).renderSpinner();
         //1 -  loadeRecipe
-        await _modelJs.loadRecipe("5ed6604591c37cdc054bc886");
+        await _modelJs.loadRecipe(id.split("/")[1]);
         //2- render Recipe
         (0, _viewRecipeJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -607,9 +607,9 @@ const controlRecipe = async function() {
 };
 const controlSearchResult = async function() {
     try {
-        (0, _resaultViewJsDefault.default).renderSpinner();
         const getQuery = (0, _searchViewJsDefault.default).getQuery();
-        if (!getQuery) return;
+        //if (!getQuery) return;
+        (0, _resaultViewJsDefault.default).renderSpinner();
         await _modelJs.loadSearchRsault(getQuery);
         console.log(_modelJs.state.search.results);
         (0, _resaultViewJsDefault.default).render(_modelJs.state.search.results);
@@ -2521,7 +2521,6 @@ const loadSearchRsault = async function(query) {
         throw error;
     }
 };
-loadSearchRsault("pizza");
 
 },{"regenerator-runtime":"dXNgZ","../js/config":"k5Hzs","../js/view/helpers":"kxpLx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2671,7 +2670,7 @@ class RecipeView extends (0, _viewJsDefault.default) {
 }
 exports.default = new RecipeView();
 
-},{"url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View.js":"gAkKI"}],"loVOp":[function(require,module,exports) {
+},{"url:../../img/icons.svg":"loVOp","./View.js":"gAkKI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
 module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
 
 },{"9bcc84ee5d265e38":"lgJ39"}],"lgJ39":[function(require,module,exports) {
